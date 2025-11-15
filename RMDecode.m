@@ -1,4 +1,4 @@
-function [decoded, decoder_tag] = RMDecode(r, m, k, decoder, ~, corrupted_file)
+function [decoded, decoder_tag] = RMDecode(r, m, ~, decoder, ~, corrupted_file)
     n = 2^m;
     fprintf('RM Decoder Implemented_r_%d_m_%d\n', r, m)
     G = build_rm_generator_matrix(r, m);
@@ -14,7 +14,7 @@ function [decoded, decoder_tag] = RMDecode(r, m, k, decoder, ~, corrupted_file)
         decoder_tag = 'ml';
     elseif decoder == 2
         fprintf('Using Successive cancellation decoder...\n');
-        decoded = sc_decoder();
+        decoded = sc_decoder_rm(corrupted_words, r, m);
         decoder_tag = 'scd';
     elseif decoder == 3
         fprintf('Using Maj Logic decoder...\n');

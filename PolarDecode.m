@@ -1,4 +1,4 @@
-function [decoded, decoder_tag] = PolarDecode(m, Afile, decoder, ~, corrupted_file)
+function [decoded, decoder_tag] = PolarDecode(m, Afile, decoder, p, corrupted_file)
     % PolarDecode(m, Afile, decoder, p, filename)
     % Outputs decoded codewords as a binary stream of 8-bit integers.
 
@@ -25,11 +25,10 @@ function [decoded, decoder_tag] = PolarDecode(m, Afile, decoder, ~, corrupted_fi
         fprintf('Using ML decoder...\n');
         codewords = get_codewords(k, G, A);
         decoded = ml_decoder(corrupted_words, codewords);
-
         decoder_tag = 'ml';
     elseif decoder == 2
         fprintf('Using SC decoder...\n');
-        decoded = sc_decoder();
+        decoded = sc_decoder_polar(corrupted_words, A, m, p);
         decoder_tag = 'scd';
     else
         error('Invalid decoder type. Use 1 for ML or 2 for SCD.');
