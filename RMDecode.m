@@ -4,8 +4,6 @@ function [decoded, decoder_tag] = RMDecode(r, m, ~, decoder, ~, corrupted_file)
     G = build_rm_generator_matrix(r, m);
     
     [corrupted_words, ~, N, ~] = load_corrupted_words(corrupted_file, n);
-    disp(size(corrupted_words));
-    disp(N);
 
     if decoder == 1
         fprintf('Using ML decoder...\n');
